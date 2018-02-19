@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ImageBadgeView">
+
+        <attr name="ibv_badgeValue" format="integer" />
+        <attr name="ibv_maxBadgeValue" format="integer" />
+        <attr name="ibv_badgeTextSize" format="dimension" />
+        <attr name="ibv_badgePadding" format="dimension" />
+
+        <attr name="ibv_badgeTextStyle" format="integer" />
+        <attr name="ibv_badgeTextFont" format="string" />
+        <attr name="ibv_badgeStyle" format="reference" />
+
+        <attr name="ibv_visibleBadge" format="boolean" />
+        <attr name="ibv_badgeLimitValue" format="boolean" />
+
+        <attr name="ibv_badgeColor" format="color" />
+        <attr name="ibv_badgeTextColor" format="color" />
+
+    </declare-styleable>
+</resources>
