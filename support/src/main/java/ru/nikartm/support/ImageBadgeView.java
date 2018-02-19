@@ -28,10 +28,12 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     public static final int DEFAULT_STYLE = View.NO_ID;
     public static final boolean DEFAULT_VISIBLE = true;
     public static final boolean DEFAULT_LIMIT = true;
+    public static final float NO_INIT = -1f;
 
     private int badgeValue = 0;
     private int maxBadgeValue = MAX_VALUE;
     private float badgeRadius;
+    private float fixedBadgeRadius = NO_INIT;
     private int badgeColor = DEFAULT_BADGE_COLOR;
     private int badgeTextColor = DEFAULT_TEXT_COLOR;
     private float badgeTextSize = DEFAULT_TEXT_SIZE;
@@ -69,6 +71,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         maxBadgeValue = typedArray.getInt(R.styleable.ImageBadgeView_ibv_maxBadgeValue, MAX_VALUE);
         badgeTextSize = typedArray.getDimension(R.styleable.ImageBadgeView_ibv_badgeTextSize, DensityUtils.txtPxToSp(DEFAULT_TEXT_SIZE));
         badgePadding = typedArray.getDimension(R.styleable.ImageBadgeView_ibv_badgePadding, DensityUtils.pxToDp(DEFAULT_BADGE_PADDING));
+        fixedBadgeRadius = typedArray.getDimension(R.styleable.ImageBadgeView_ibv_fixedBadgeRadius, DensityUtils.pxToDp(NO_INIT));
         badgeTextStyle = typedArray.getInt(R.styleable.ImageBadgeView_ibv_badgeTextStyle, DEFAULT_FONT_STYLE);
         String fontPath = typedArray.getString(R.styleable.ImageBadgeView_ibv_badgeTextFont);
         badgeTextFont = fontPath != null ? Typeface.createFromFile(fontPath) : DEFAULT_FONT;
@@ -104,7 +107,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
                 textWidth = paint.measureText(badgeValue + "");
             }
 
-            badgeRadius = (textWidth + badgePadding * 2) / 2;
+            computeRadius(textWidth);
             float x = pivotX + viewWidth / 2 - badgeRadius;
             float y = pivotY - viewHeight / 2 + badgeRadius;
             paint.setColor(badgeColor);
@@ -118,6 +121,14 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
                 canvas.drawText(badgeValue + "", x - textWidth / 2,
                         y + badgeTextSize / scale, paint);
             }
+        }
+    }
+
+    private void computeRadius(float textWidth) {
+        if (fixedBadgeRadius != NO_INIT) {
+            badgeRadius = fixedBadgeRadius;
+        } else {
+            badgeRadius = (textWidth + badgePadding * 2) / 2;
         }
     }
 
@@ -178,6 +189,11 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     public float getBadgeRadius() {
         return badgeRadius;
+    }
+
+    public ImageBadgeView setFixedBadgeRadius(float fixedBadgeRadius) {
+        this.fixedBadgeRadius = fixedBadgeRadius;
+        return this;
     }
 
     public Typeface getBadgeTextFont() {

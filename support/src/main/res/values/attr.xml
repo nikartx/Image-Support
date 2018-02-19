@@ -6,6 +6,7 @@
         <attr name="ibv_maxBadgeValue" format="integer" />
         <attr name="ibv_badgeTextSize" format="dimension" />
         <attr name="ibv_badgePadding" format="dimension" />
+        <attr name="ibv_fixedBadgeRadius" format="dimension" />
 
         <attr name="ibv_badgeTextStyle" format="integer" />
         <attr name="ibv_badgeTextFont" format="string" />

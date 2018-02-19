@@ -27,12 +27,13 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
-        app:ibv_badgeValue="33"
         android:padding="10dp"
-        app:ibv_badgePadding="5dp"
-        app:ibv_badgeTextSize="16sp"
+        app:ibv_badgeValue="100"
+        app:ibv_badgeTextSize="10sp"
+        app:ibv_fixedBadgeRadius="15dp"
         app:ibv_badgeTextColor="#ffffff"
         app:ibv_badgeColor="@color/colorAccent"
+        app:ibv_badgeLimitValue="false"
         android:layout_gravity="center"
         android:src="@drawable/ic_launcher_background" />
 
