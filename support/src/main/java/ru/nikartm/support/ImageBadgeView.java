@@ -98,6 +98,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         if (visibleBadge && badgeValue > 0) {
             if (paint == null) {
                 paint = new Paint();
+                paint.setAntiAlias(true);
                 Resources resources = context.getResources();
                 scale = resources.getDisplayMetrics().density;
                 Typeface typeface = Typeface.create(badgeTextFont, badgeTextStyle);
