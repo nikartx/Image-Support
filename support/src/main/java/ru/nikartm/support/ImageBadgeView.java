@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import ru.nikartm.support.listener.OnBadgeCountChangeListener;
 import ru.nikartm.support.util.DensityUtils;
 
 /**
@@ -20,6 +21,7 @@ import ru.nikartm.support.util.DensityUtils;
  */
 public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView {
 
+    public static final int MAX_CIRCLE_NUMBER = 9;
     public static final int MAX_VALUE = 99;
     public static final int DEFAULT_BADGE_COLOR = Color.parseColor("red");
     public static final int DEFAULT_TEXT_COLOR = Color.WHITE;
@@ -57,6 +59,8 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     private Context context;
     private float scale;
     private Paint paint;
+
+    private OnBadgeCountChangeListener onBadgeCountChangeListener;
 
     public ImageBadgeView(Context context) {
         super(context);
@@ -168,7 +172,10 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     private float getBadgeWidth() {
         float width;
-        if (badgeDrawable != null && badgeValue > 9 && badgeOvalAfterFirst && !fixedRadius) {
+        if (badgeDrawable != null
+                && badgeValue > MAX_CIRCLE_NUMBER
+                && badgeOvalAfterFirst
+                && !fixedRadius) {
             width = textWidth + badgePadding * 4f;
         } else {
             width = textWidth + badgePadding * 2f;
@@ -194,12 +201,19 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
+    public void setOnBadgeCountChangeListener(OnBadgeCountChangeListener listener) {
+        onBadgeCountChangeListener = listener;
+    }
+
     public int getBadgeValue() {
         return badgeValue;
     }
 
     public ImageBadgeView setBadgeValue(int badgeValue) {
         this.badgeValue = badgeValue;
+        if (onBadgeCountChangeListener != null) {
+            onBadgeCountChangeListener.onCountChange(badgeValue);
+        }
         invalidate();
         return this;
     }
@@ -367,6 +381,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         roundBadge = DEFAULT_ROUND;
         fixedRadius = DEFAULT_FIXED_RADIUS;
         badgeOvalAfterFirst = DEFAULT_BADGE_OVAL;
+        onBadgeCountChangeListener = null;
         invalidate();
     }
 }
