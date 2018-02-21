@@ -158,11 +158,11 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     }
 
     private float getBadgeHeight() {
-        return badgeTextSize + badgePadding * 2;
+        return badgeTextSize + badgePadding * 2f;
     }
 
     private float getBadgeWidth(float textWidth) {
-        return textWidth + badgePadding * 2;
+        return textWidth + badgePadding * 2f;
     }
 
     private float getTextWidth() {
@@ -297,8 +297,8 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         return badgeBackground;
     }
 
-    public ImageBadgeView setBadgeBackground(int badgeBackground) {
-        this.badgeBackground = badgeBackground;
+    public ImageBadgeView setBadgeBackground(Drawable badgeBackground) {
+        this.badgeDrawable = badgeBackground;
         invalidate();
         return this;
     }
