@@ -4,17 +4,19 @@
 
         <attr name="ibv_badgeValue" format="integer" />
         <attr name="ibv_maxBadgeValue" format="integer" />
-        <attr name="ibv_badgeTextSize" format="dimension" />
         <attr name="ibv_badgePadding" format="dimension" />
         <attr name="ibv_fixedBadgeRadius" format="dimension" />
 
-        <attr name="ibv_badgeTextStyle" format="integer" />
-        <attr name="ibv_badgeTextFont" format="string|reference" />
-        <attr name="ibv_badgeBackground" format="color|reference" />
-
         <attr name="ibv_visibleBadge" format="boolean" />
         <attr name="ibv_badgeLimitValue" format="boolean" />
+        <attr name="ibv_roundBadge" format="boolean" />
+        <attr name="ibv_fixedRadius" format="boolean" />
 
+        <attr name="ibv_badgeTextSize" format="dimension" />
+        <attr name="ibv_badgeTextStyle" format="integer" />
+        <attr name="ibv_badgeTextFont" format="string|reference" />
+
+        <attr name="ibv_badgeBackground" format="color|reference" />
         <attr name="ibv_badgeColor" format="color" />
         <attr name="ibv_badgeTextColor" format="color" />
 
