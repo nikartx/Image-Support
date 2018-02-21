@@ -13,8 +13,13 @@
         <attr name="ibv_fixedRadius" format="boolean" />
 
         <attr name="ibv_badgeTextSize" format="dimension" />
-        <attr name="ibv_badgeTextStyle" format="integer" />
         <attr name="ibv_badgeTextFont" format="string|reference" />
+        <attr name="ibv_badgeTextStyle">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="italic_bold" value="3" />
+        </attr>
 
         <attr name="ibv_badgeBackground" format="color|reference" />
         <attr name="ibv_badgeColor" format="color" />

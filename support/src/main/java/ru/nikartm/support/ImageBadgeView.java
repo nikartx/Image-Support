@@ -209,6 +209,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     public ImageBadgeView setRoundBadge(boolean roundBadge) {
         this.roundBadge = roundBadge;
+        invalidate();
         return this;
     }
 
@@ -218,6 +219,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     public ImageBadgeView setFixedRadius(boolean fixedRadius) {
         this.fixedRadius = fixedRadius;
+        invalidate();
         return this;
     }
 
@@ -257,6 +259,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     public ImageBadgeView setBadgePadding(int badgePadding) {
         this.badgePadding = DensityUtils.txtPxToSp(badgePadding);
+        invalidate();
         return this;
     }
 
@@ -266,6 +269,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     public ImageBadgeView setFixedBadgeRadius(float fixedBadgeRadius) {
         this.fixedBadgeRadius = fixedBadgeRadius;
+        invalidate();
         return this;
     }
 
@@ -283,9 +287,10 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         return badgeTextStyle;
     }
 
-    public void setBadgeTextStyle(int badgeTextStyle) {
+    public ImageBadgeView setBadgeTextStyle(int badgeTextStyle) {
         this.badgeTextStyle = badgeTextStyle;
         invalidate();
+        return this;
     }
 
     public int getBadgeBackground() {
@@ -294,6 +299,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     public ImageBadgeView setBadgeBackground(int badgeBackground) {
         this.badgeBackground = badgeBackground;
+        invalidate();
         return this;
     }
 

@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBadgeColor(getResources().getColor(R.color.colorRed400))
                 .setMaxBadgeValue(999)
                 .setBadgeTextFont(tf)
+                .setBadgeTextStyle(Typeface.NORMAL)
                 .setBadgePadding(5);
     }
 }
