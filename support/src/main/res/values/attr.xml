@@ -9,8 +9,8 @@
         <attr name="ibv_fixedBadgeRadius" format="dimension" />
 
         <attr name="ibv_badgeTextStyle" format="integer" />
-        <attr name="ibv_badgeTextFont" format="string" />
-        <attr name="ibv_badgeStyle" format="reference" />
+        <attr name="ibv_badgeTextFont" format="string|reference" />
+        <attr name="ibv_badgeBackground" format="color|reference" />
 
         <attr name="ibv_visibleBadge" format="boolean" />
         <attr name="ibv_badgeLimitValue" format="boolean" />

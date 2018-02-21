@@ -57,6 +57,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
+        app:ibv_badgeBackground="@drawable/rectangle_rounded"
         android:src="@drawable/ic_mail" />
 
 </LinearLayout>

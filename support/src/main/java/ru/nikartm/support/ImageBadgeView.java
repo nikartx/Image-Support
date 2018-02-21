@@ -7,19 +7,21 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
 import ru.nikartm.support.util.DensityUtils;
 
 /**
+ * Image View with a badge like notification count
  * @author Ivan V on 18.02.2018.
  * @version 1.0
  */
 public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView {
 
     public static final int MAX_VALUE = 99;
-    public static final int DEFAULT_BADGE_COLOR = Color.parseColor("maroon");
+    public static final int DEFAULT_BADGE_COLOR = Color.parseColor("red");
     public static final int DEFAULT_TEXT_COLOR = Color.WHITE;
     public static final int DEFAULT_BADGE_PADDING = 0;
     public static final int DEFAULT_TEXT_SIZE = 12;
@@ -40,9 +42,10 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     private float badgePadding = DEFAULT_BADGE_PADDING;
     private Typeface badgeTextFont = DEFAULT_FONT;
     private int badgeTextStyle = DEFAULT_FONT_STYLE;
-    private int badgeStyle = DEFAULT_STYLE;
+    private int badgeBackground = DEFAULT_STYLE;
     private boolean visibleBadge = DEFAULT_VISIBLE;
     private boolean limitValue = DEFAULT_LIMIT;
+    private Drawable badgeDrawable;
 
     private Context context;
     private float scale;
@@ -75,7 +78,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         badgeTextStyle = typedArray.getInt(R.styleable.ImageBadgeView_ibv_badgeTextStyle, DEFAULT_FONT_STYLE);
         String fontPath = typedArray.getString(R.styleable.ImageBadgeView_ibv_badgeTextFont);
         badgeTextFont = fontPath != null ? Typeface.createFromFile(fontPath) : DEFAULT_FONT;
-        badgeStyle = typedArray.getResourceId(R.styleable.ImageBadgeView_ibv_badgeStyle, DEFAULT_STYLE);
+        badgeDrawable = typedArray.getDrawable(R.styleable.ImageBadgeView_ibv_badgeBackground);
         visibleBadge = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_visibleBadge, DEFAULT_VISIBLE);
         limitValue = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_badgeLimitValue, DEFAULT_LIMIT);
         badgeColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeColor, DEFAULT_BADGE_COLOR);
@@ -100,28 +103,44 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
             int viewHeight = getMeasuredHeight();
             int viewWidth = getMeasuredWidth();
 
-            float textWidth;
-            if (limitValue && badgeValue > maxBadgeValue) {
-                textWidth = paint.measureText(maxBadgeValue + "+");
-            } else {
-                textWidth = paint.measureText(badgeValue + "");
-            }
-
+            float textWidth = getTextWidth();
             computeRadius(textWidth);
-            float x = pivotX + viewWidth / 2 - badgeRadius;
-            float y = pivotY - viewHeight / 2 + badgeRadius;
+
+            float dx = pivotX + viewWidth / 2 - badgeRadius;
+            float dy = pivotY - viewHeight / 2 + badgeRadius;
             paint.setColor(badgeColor);
-            canvas.drawCircle(x, y, badgeRadius, paint);
+            if (badgeDrawable != null) {
+                dy = pivotY - viewHeight / 2 + (badgeTextSize + badgePadding * 2) / 2;
+                int valueWidth = (int) (textWidth + badgePadding * 2);
+                int valueHeight = (int) (badgeTextSize + badgePadding * 2);
+                badgeDrawable.setBounds(0, 0, valueWidth, valueHeight);
+                canvas.save();
+                canvas.translate(dx - valueWidth / 2, dy - valueHeight / 2);
+                badgeDrawable.draw(canvas);
+                canvas.restore();
+            } else {
+                canvas.drawCircle(dx, dy, badgeRadius, paint);
+            }
 
             paint.setColor(badgeTextColor);
             if (limitValue && badgeValue > maxBadgeValue) {
-                canvas.drawText(maxBadgeValue + "+", x - textWidth / 2,
-                        y + badgeTextSize / scale, paint);
+                canvas.drawText(String.valueOf(maxBadgeValue).concat("+"), dx - textWidth / 2,
+                        dy + badgeTextSize / scale, paint);
             } else {
-                canvas.drawText(badgeValue + "", x - textWidth / 2,
-                        y + badgeTextSize / scale, paint);
+                canvas.drawText(String.valueOf(badgeValue), dx - textWidth / 2,
+                        dy + badgeTextSize / scale, paint);
             }
         }
+    }
+
+    private float getTextWidth() {
+        float textWidth;
+        if (limitValue && badgeValue > maxBadgeValue) {
+            textWidth = paint.measureText(String.valueOf(maxBadgeValue).concat("+"));
+        } else {
+            textWidth = paint.measureText(String.valueOf(badgeValue));
+        }
+        return textWidth;
     }
 
     private void computeRadius(float textWidth) {
@@ -173,7 +192,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     }
 
     public ImageBadgeView setBadgeTextSize(int badgeTextSize) {
-        this.badgeTextSize = DensityUtils.txtPxToSp(badgeTextSize);
+        this.badgeTextSize = DensityUtils.dpToPx(badgeTextSize);
         invalidate();
         return this;
     }
@@ -183,7 +202,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     }
 
     public ImageBadgeView setBadgePadding(int badgePadding) {
-        this.badgePadding = DensityUtils.dpToPx(badgePadding);
+        this.badgePadding = DensityUtils.txtPxToSp(badgePadding);
         return this;
     }
 
@@ -215,12 +234,12 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         invalidate();
     }
 
-    public int getBadgeStyle() {
-        return badgeStyle;
+    public int getBadgeBackground() {
+        return badgeBackground;
     }
 
-    public ImageBadgeView setBadgeStyle(int badgeStyle) {
-        this.badgeStyle = badgeStyle;
+    public ImageBadgeView setBadgeBackground(int badgeBackground) {
+        this.badgeBackground = badgeBackground;
         return this;
     }
 
@@ -248,10 +267,12 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     public void resetBadge() {
         badgeValue = 0;
         maxBadgeValue = MAX_VALUE;
+        fixedBadgeRadius = NO_INIT;
         badgeTextStyle = DEFAULT_FONT_STYLE;
         badgeColor = DEFAULT_BADGE_COLOR;
         badgeTextSize = DEFAULT_TEXT_SIZE;
         badgeTextColor = DEFAULT_TEXT_COLOR;
+        badgeDrawable = null;
         limitValue = true;
         visibleBadge = true;
         invalidate();

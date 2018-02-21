@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initIconWithBadges() {
         Typeface tf = Typeface.createFromAsset(getAssets(), "exo_regular.ttf");
-        imageBadgeView.setBadgeValue(10)
+        imageBadgeView.setBadgeValue(18)
                 .setBadgeTextSize(16)
                 .setBadgeColor(getResources().getColor(R.color.colorRed400))
                 .setMaxBadgeValue(999)
