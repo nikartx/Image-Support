@@ -168,7 +168,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     private float getBadgeWidth() {
         float width;
-        if (badgeDrawable != null && badgeOvalAfterFirst && !fixedRadius) {
+        if (badgeDrawable != null && badgeValue > 9 && badgeOvalAfterFirst && !fixedRadius) {
             width = textWidth + badgePadding * 4f;
         } else {
             width = textWidth + badgePadding * 2f;
