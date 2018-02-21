@@ -11,6 +11,8 @@
         <attr name="ibv_badgeLimitValue" format="boolean" />
         <attr name="ibv_roundBadge" format="boolean" />
         <attr name="ibv_fixedRadius" format="boolean" />
+        <!-- Use for the custom badge drawable -->
+        <attr name="ibv_badgeOvalAfterFirst" format="boolean" />
 
         <attr name="ibv_badgeTextSize" format="dimension" />
         <attr name="ibv_badgeTextFont" format="string|reference" />

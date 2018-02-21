@@ -32,6 +32,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     public static final boolean DEFAULT_LIMIT = true;
     public static final boolean DEFAULT_ROUND = true;
     public static final boolean DEFAULT_FIXED_RADIUS = false;
+    public static final boolean DEFAULT_BADGE_OVAL = false;
     public static final float NO_INIT = -1f;
 
     private int badgeValue = 0;
@@ -49,7 +50,9 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     private boolean limitValue = DEFAULT_LIMIT;
     private boolean roundBadge = DEFAULT_ROUND;
     private boolean fixedRadius = DEFAULT_FIXED_RADIUS;
+    private boolean badgeOvalAfterFirst = DEFAULT_BADGE_OVAL;
     private Drawable badgeDrawable;
+    private float textWidth;
 
     private Context context;
     private float scale;
@@ -87,6 +90,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         limitValue = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_badgeLimitValue, DEFAULT_LIMIT);
         roundBadge = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_roundBadge, DEFAULT_ROUND);
         fixedRadius = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_fixedRadius, DEFAULT_FIXED_RADIUS);
+        badgeOvalAfterFirst = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_badgeOvalAfterFirst, DEFAULT_BADGE_OVAL);
         badgeColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeColor, DEFAULT_BADGE_COLOR);
         badgeTextColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeTextColor, DEFAULT_TEXT_COLOR);
         typedArray.recycle();
@@ -110,8 +114,8 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
             int viewHeight = getMeasuredHeight();
             int viewWidth = getMeasuredWidth();
 
-            float textWidth = getTextWidth();
-            computeRadius(textWidth);
+            textWidth = getTextWidth();
+            computeRadius();
 
             float dx = pivotX + viewWidth / 2 - badgeRadius;
             float dy = pivotY - viewHeight / 2 + badgeRadius;
@@ -121,11 +125,11 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
             if (badgeDrawable != null) {
                 dy = pivotY - viewHeight / 2 + getBadgeHeight() / 2;
                 int valueHeight = (int) getBadgeHeight();
-                int valueWidth = (int) getBadgeWidth(textWidth);
+                int valueWidth = (int) getBadgeWidth();
                 if (fixedRadius) {
                     if (valueWidth > valueHeight) {
-                        dy = pivotY - viewHeight / 2 + getBadgeWidth(textWidth) / 2;
-                        dx = pivotX + viewWidth / 2 - getBadgeWidth(textWidth) / 2;
+                        dy = pivotY - viewHeight / 2 + getBadgeWidth() / 2;
+                        dx = pivotX + viewWidth / 2 - getBadgeWidth() / 2;
                     } else {
                         dy = pivotY - viewHeight / 2 + getBadgeHeight() / 2;
                         dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
@@ -162,8 +166,14 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         return badgeTextSize + badgePadding * 2f;
     }
 
-    private float getBadgeWidth(float textWidth) {
-        return textWidth + badgePadding * 2f;
+    private float getBadgeWidth() {
+        float width;
+        if (badgeDrawable != null && badgeOvalAfterFirst && !fixedRadius) {
+            width = textWidth + badgePadding * 4f;
+        } else {
+            width = textWidth + badgePadding * 2f;
+        }
+        return width;
     }
 
     private float getTextWidth() {
@@ -176,11 +186,11 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         return textWidth;
     }
 
-    private void computeRadius(float textWidth) {
+    private void computeRadius() {
         if (fixedBadgeRadius != NO_INIT) {
             badgeRadius = fixedBadgeRadius;
         } else {
-            badgeRadius = getBadgeWidth(textWidth) / 2;
+            badgeRadius = getBadgeWidth() / 2;
         }
     }
 
@@ -220,6 +230,16 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
 
     public ImageBadgeView setFixedRadius(boolean fixedRadius) {
         this.fixedRadius = fixedRadius;
+        invalidate();
+        return this;
+    }
+
+    public boolean isBadgeOvalAfterFirst() {
+        return badgeOvalAfterFirst;
+    }
+
+    public ImageBadgeView setBadgeOvalAfterFirst(boolean badgeOvalAfterFirst) {
+        this.badgeOvalAfterFirst = badgeOvalAfterFirst;
         invalidate();
         return this;
     }
@@ -298,6 +318,10 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         return badgeBackground;
     }
 
+    public Drawable getBadgeBackgroundDrawable() {
+        return badgeDrawable;
+    }
+
     public ImageBadgeView setBadgeBackground(Drawable badgeBackground) {
         this.badgeDrawable = badgeBackground;
         invalidate();
@@ -342,6 +366,7 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         visibleBadge = DEFAULT_VISIBLE;
         roundBadge = DEFAULT_ROUND;
         fixedRadius = DEFAULT_FIXED_RADIUS;
+        badgeOvalAfterFirst = DEFAULT_BADGE_OVAL;
         invalidate();
     }
 }

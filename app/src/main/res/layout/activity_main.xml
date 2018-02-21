@@ -45,6 +45,7 @@
         android:layout_marginTop="30dp"
         android:padding="5dp"
         app:ibv_badgeValue="101"
+        app:ibv_badgeOvalAfterFirst="true"
         app:ibv_badgePadding="5dp"
         app:ibv_badgeTextSize="16sp"
         app:ibv_badgeTextColor="#ffffff"
