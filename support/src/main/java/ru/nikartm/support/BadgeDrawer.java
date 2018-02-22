@@ -9,6 +9,7 @@ import ru.nikartm.support.constant.Constants;
 import ru.nikartm.support.model.Badge;
 
 /**
+ * Draw a badge and the count on ImageView
  * @author Ivan V on 21.02.2018.
  * @version 1.0
  */
@@ -17,26 +18,19 @@ public class BadgeDrawer {
     private View view;
     private Badge badge;
 
-    private float scale;
     private Paint paint;
+    private float scale;
+    private float dx;
+    private float dy;
 
     public BadgeDrawer(View view, Badge badge) {
         this.view = view;
         this.badge = badge;
-        initPaint();
-    }
-
-    private void initPaint() {
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        scale = view.getContext().getResources().getDisplayMetrics().density;
-        Typeface typeface = Typeface.create(badge.getBadgeTextFont(), badge.getTextStyle());
-        paint.setTypeface(typeface);
-        paint.setTextSize(badge.getBadgeTextSize());
     }
 
     public void draw(Canvas canvas) {
         if (badge.isVisible() && badge.getValue() > 0) {
+            initPaint();
             float pivotX = view.getPivotX();
             float pivotY = view.getPivotY();
             int viewHeight = view.getMeasuredHeight();
@@ -45,48 +39,70 @@ public class BadgeDrawer {
             badge.setTextWidth(getTextWidth());
             computeRadius();
 
-            float dx = pivotX + viewWidth / 2 - badge.getRadius();
-            float dy = pivotY - viewHeight / 2 + badge.getRadius();
+            dx = pivotX + viewWidth / 2 - badge.getRadius();
+            dy = pivotY - viewHeight / 2 + badge.getRadius();
 
-            // Draw a badge
-            paint.setColor(badge.getBadgeColor());
-            if (badge.getBackgroundDrawable() != null) {
+            drawBadge(canvas, pivotX, pivotY, viewHeight, viewWidth);
+            drawText(canvas);
+        }
+    }
+
+    private void initPaint() {
+        if (paint == null) {
+            paint = new Paint();
+            paint.setAntiAlias(true);
+            scale = view.getResources().getDisplayMetrics().density;
+            Typeface typeface = Typeface.create(badge.getBadgeTextFont(), badge.getTextStyle());
+            paint.setTypeface(typeface);
+            paint.setTextSize(badge.getBadgeTextSize());
+        }
+    }
+
+    // Draw a badge
+    private void drawBadge(Canvas canvas, float pivotX, float pivotY, int viewHeight, int viewWidth) {
+        paint.setColor(badge.getBadgeColor());
+        if (badge.getBackgroundDrawable() != null) {
+            drawCustomBadgeBackground(canvas, pivotX, pivotY, viewHeight, viewWidth);
+        } else {
+            canvas.drawCircle(dx, dy, badge.getRadius(), paint);
+        }
+    }
+
+    private void drawCustomBadgeBackground(Canvas canvas, float pivotX, float pivotY, int viewHeight, int viewWidth) {
+        dy = pivotY - viewHeight / 2 + getBadgeHeight() / 2;
+        int valueHeight = (int) getBadgeHeight();
+        int valueWidth = (int) getBadgeWidth();
+        if (badge.isFixedRadius()) {
+            if (valueWidth > valueHeight) {
+                dy = pivotY - viewHeight / 2 + getBadgeWidth() / 2;
+                dx = pivotX + viewWidth / 2 - getBadgeWidth() / 2;
+            } else {
                 dy = pivotY - viewHeight / 2 + getBadgeHeight() / 2;
-                int valueHeight = (int) getBadgeHeight();
-                int valueWidth = (int) getBadgeWidth();
-                if (badge.isFixedRadius()) {
-                    if (valueWidth > valueHeight) {
-                        dy = pivotY - viewHeight / 2 + getBadgeWidth() / 2;
-                        dx = pivotX + viewWidth / 2 - getBadgeWidth() / 2;
-                    } else {
-                        dy = pivotY - viewHeight / 2 + getBadgeHeight() / 2;
-                        dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
-                    }
-                    int maxRadius = Math.max(valueWidth, valueHeight);
-                    valueWidth = maxRadius;
-                    valueHeight = maxRadius;
-                } else if (badge.isRoundBadge() && valueWidth < valueHeight) {
-                    dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
-                    valueWidth = valueHeight;
-                }
-                badge.getBackgroundDrawable().setBounds(0, 0, valueWidth, valueHeight);
-                canvas.save();
-                canvas.translate(dx - valueWidth / 2, dy - valueHeight / 2);
-                badge.getBackgroundDrawable().draw(canvas);
-                canvas.restore();
-            } else {
-                canvas.drawCircle(dx, dy, badge.getRadius(), paint);
+                dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
             }
+            int maxRadius = Math.max(valueWidth, valueHeight);
+            valueWidth = maxRadius;
+            valueHeight = maxRadius;
+        } else if (badge.isRoundBadge() && valueWidth < valueHeight) {
+            dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
+            valueWidth = valueHeight;
+        }
+        badge.getBackgroundDrawable().setBounds(0, 0, valueWidth, valueHeight);
+        canvas.save();
+        canvas.translate(dx - valueWidth / 2, dy - valueHeight / 2);
+        badge.getBackgroundDrawable().draw(canvas);
+        canvas.restore();
+    }
 
-            // Draw text
-            paint.setColor(badge.getBadgeTextColor());
-            if (badge.isLimitValue() && badge.getValue() > Constants.MAX_VALUE) {
-                canvas.drawText(String.valueOf(Constants.MAX_VALUE).concat("+"), dx - badge.getTextWidth() / 2,
-                        dy + badge.getBadgeTextSize() / scale, paint);
-            } else {
-                canvas.drawText(String.valueOf(badge.getValue()), dx - badge.getTextWidth() / 2,
-                        dy + badge.getBadgeTextSize() / scale, paint);
-            }
+    // Draw text
+    private void drawText(Canvas canvas) {
+        paint.setColor(badge.getBadgeTextColor());
+        if (badge.isLimitValue() && badge.getValue() > badge.getMaxValue()) {
+            canvas.drawText(String.valueOf(badge.getMaxValue()).concat("+"), dx - badge.getTextWidth() / 2,
+                    dy + badge.getBadgeTextSize() / scale, paint);
+        } else {
+            canvas.drawText(String.valueOf(badge.getValue()), dx - badge.getTextWidth() / 2,
+                    dy + badge.getBadgeTextSize() / scale, paint);
         }
     }
 
@@ -109,8 +125,8 @@ public class BadgeDrawer {
 
     private float getTextWidth() {
         float textWidth;
-        if (badge.isLimitValue() && badge.getValue() > Constants.MAX_VALUE) {
-            textWidth = paint.measureText(String.valueOf(badge.getValue()).concat("+"));
+        if (badge.isLimitValue() && badge.getValue() > badge.getMaxValue()) {
+            textWidth = paint.measureText(String.valueOf(badge.getMaxValue()).concat("+"));
         } else {
             textWidth = paint.measureText(String.valueOf(badge.getValue()));
         }

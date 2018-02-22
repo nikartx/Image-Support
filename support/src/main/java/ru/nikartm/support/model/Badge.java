@@ -31,7 +31,7 @@ public class Badge {
     public Badge() {
     }
 
-    public void cleanValue() {
+    public void clearValue() {
         this.value = 0;
     }
 

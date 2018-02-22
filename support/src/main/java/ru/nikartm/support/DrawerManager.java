@@ -7,6 +7,7 @@ import android.view.View;
 import ru.nikartm.support.model.Badge;
 
 /**
+ * Badge drawer manager
  * @author Ivan V on 21.02.2018.
  * @version 1.0
  */
@@ -26,14 +27,6 @@ public class DrawerManager {
 
     public void drawBadge(Canvas canvas) {
         drawer.draw(canvas);
-    }
-
-    public AttributeController getAttrController() {
-        return attrController;
-    }
-
-    public BadgeDrawer getDrawer() {
-        return drawer;
     }
 
     public Badge getBadge() {

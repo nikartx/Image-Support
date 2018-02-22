@@ -11,6 +11,7 @@ import ru.nikartm.support.model.Badge;
 import ru.nikartm.support.util.DensityUtils;
 
 /**
+ * Define and init attribute values
  * @author Ivan V on 21.02.2018.
  * @version 1.0
  */
@@ -51,7 +52,7 @@ public class AttributeController {
                 .setBadgeTextSize(textSize)
                 .setPadding(padding)
                 .setFixedRadiusSize(fixedBadgeRadius)
-                .setBadgeTextSize(badgeTextStyle)
+                .setTextStyle(badgeTextStyle)
                 .setBadgeTextFont(badgeTextFont)
                 .setBackgroundDrawable(badgeDrawable)
                 .setVisible(visible)
@@ -63,10 +64,6 @@ public class AttributeController {
                 .setBadgeTextColor(badgeTextColor);
 
         typedArray.recycle();
-    }
-
-    public AttributeSet getAttrs() {
-        return attrs;
     }
 
     public Badge getBadge() {

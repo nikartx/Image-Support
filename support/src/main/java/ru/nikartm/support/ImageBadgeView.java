@@ -1,15 +1,11 @@
 package ru.nikartm.support;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
+import android.util.Log;
 
 import ru.nikartm.support.listener.OnBadgeCountChangeListener;
 import ru.nikartm.support.util.DensityUtils;
@@ -21,184 +17,33 @@ import ru.nikartm.support.util.DensityUtils;
  */
 public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView {
 
-    public static final int MAX_CIRCLE_NUMBER = 9;
-    public static final int MAX_VALUE = 99;
-    public static final int DEFAULT_BADGE_COLOR = Color.parseColor("red");
-    public static final int DEFAULT_TEXT_COLOR = Color.WHITE;
-    public static final int DEFAULT_BADGE_PADDING = 0;
-    public static final int DEFAULT_TEXT_SIZE = 12;
-    public static final Typeface DEFAULT_FONT = Typeface.DEFAULT;
-    public static final int DEFAULT_FONT_STYLE = Typeface.NORMAL;
-    public static final int DEFAULT_STYLE = View.NO_ID;
-    public static final boolean DEFAULT_VISIBLE = true;
-    public static final boolean DEFAULT_LIMIT = true;
-    public static final boolean DEFAULT_ROUND = true;
-    public static final boolean DEFAULT_FIXED_RADIUS = false;
-    public static final boolean DEFAULT_BADGE_OVAL = false;
-    public static final float NO_INIT = -1f;
-
-    private int badgeValue = 0;
-    private int maxBadgeValue = MAX_VALUE;
-    private float badgeRadius;
-    private float fixedBadgeRadius = NO_INIT;
-    private int badgeColor = DEFAULT_BADGE_COLOR;
-    private int badgeTextColor = DEFAULT_TEXT_COLOR;
-    private float badgeTextSize = DEFAULT_TEXT_SIZE;
-    private float badgePadding = DEFAULT_BADGE_PADDING;
-    private Typeface badgeTextFont = DEFAULT_FONT;
-    private int badgeTextStyle = DEFAULT_FONT_STYLE;
-    private int badgeBackground = DEFAULT_STYLE;
-    private boolean visibleBadge = DEFAULT_VISIBLE;
-    private boolean limitValue = DEFAULT_LIMIT;
-    private boolean roundBadge = DEFAULT_ROUND;
-    private boolean fixedRadius = DEFAULT_FIXED_RADIUS;
-    private boolean badgeOvalAfterFirst = DEFAULT_BADGE_OVAL;
-    private Drawable badgeDrawable;
-    private float textWidth;
-
-    private Context context;
-    private float scale;
-    private Paint paint;
-
+    private DrawerManager manager;
     private OnBadgeCountChangeListener onBadgeCountChangeListener;
 
     public ImageBadgeView(Context context) {
         super(context);
-        this.context = context;
+        initAttr(null);
     }
 
     public ImageBadgeView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
         initAttr(attrs);
     }
 
     public ImageBadgeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.context = context;
         initAttr(attrs);
     }
 
     private void initAttr(AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageBadgeView);
-        badgeValue = typedArray.getInt(R.styleable.ImageBadgeView_ibv_badgeValue,0);
-        maxBadgeValue = typedArray.getInt(R.styleable.ImageBadgeView_ibv_maxBadgeValue, MAX_VALUE);
-        badgeTextSize = typedArray.getDimension(R.styleable.ImageBadgeView_ibv_badgeTextSize, DensityUtils.txtPxToSp(DEFAULT_TEXT_SIZE));
-        badgePadding = typedArray.getDimension(R.styleable.ImageBadgeView_ibv_badgePadding, DensityUtils.pxToDp(DEFAULT_BADGE_PADDING));
-        fixedBadgeRadius = typedArray.getDimension(R.styleable.ImageBadgeView_ibv_fixedBadgeRadius, DensityUtils.pxToDp(NO_INIT));
-        badgeTextStyle = typedArray.getInt(R.styleable.ImageBadgeView_ibv_badgeTextStyle, DEFAULT_FONT_STYLE);
-        String fontPath = typedArray.getString(R.styleable.ImageBadgeView_ibv_badgeTextFont);
-        badgeTextFont = fontPath != null ? Typeface.createFromFile(fontPath) : DEFAULT_FONT;
-        badgeDrawable = typedArray.getDrawable(R.styleable.ImageBadgeView_ibv_badgeBackground);
-        visibleBadge = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_visibleBadge, DEFAULT_VISIBLE);
-        limitValue = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_badgeLimitValue, DEFAULT_LIMIT);
-        roundBadge = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_roundBadge, DEFAULT_ROUND);
-        fixedRadius = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_fixedRadius, DEFAULT_FIXED_RADIUS);
-        badgeOvalAfterFirst = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_badgeOvalAfterFirst, DEFAULT_BADGE_OVAL);
-        badgeColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeColor, DEFAULT_BADGE_COLOR);
-        badgeTextColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeTextColor, DEFAULT_TEXT_COLOR);
-        typedArray.recycle();
+        manager = new DrawerManager(ImageBadgeView.this, attrs);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (visibleBadge && badgeValue > 0) {
-            if (paint == null) {
-                paint = new Paint();
-                paint.setAntiAlias(true);
-                Resources resources = context.getResources();
-                scale = resources.getDisplayMetrics().density;
-                Typeface typeface = Typeface.create(badgeTextFont, badgeTextStyle);
-                paint.setTypeface(typeface);
-                paint.setTextSize(badgeTextSize);
-            }
-            float pivotX = getPivotX();
-            float pivotY = getPivotY();
-            int viewHeight = getMeasuredHeight();
-            int viewWidth = getMeasuredWidth();
-
-            textWidth = getTextWidth();
-            computeRadius();
-
-            float dx = pivotX + viewWidth / 2 - badgeRadius;
-            float dy = pivotY - viewHeight / 2 + badgeRadius;
-
-            // Draw a badge
-            paint.setColor(badgeColor);
-            if (badgeDrawable != null) {
-                dy = pivotY - viewHeight / 2 + getBadgeHeight() / 2;
-                int valueHeight = (int) getBadgeHeight();
-                int valueWidth = (int) getBadgeWidth();
-                if (fixedRadius) {
-                    if (valueWidth > valueHeight) {
-                        dy = pivotY - viewHeight / 2 + getBadgeWidth() / 2;
-                        dx = pivotX + viewWidth / 2 - getBadgeWidth() / 2;
-                    } else {
-                        dy = pivotY - viewHeight / 2 + getBadgeHeight() / 2;
-                        dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
-                    }
-                    int maxRadius = Math.max(valueWidth, valueHeight);
-                    valueWidth = maxRadius;
-                    valueHeight = maxRadius;
-                } else if (roundBadge && valueWidth < valueHeight) {
-                    dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
-                    valueWidth = valueHeight;
-                }
-                badgeDrawable.setBounds(0, 0, valueWidth, valueHeight);
-                canvas.save();
-                canvas.translate(dx - valueWidth / 2, dy - valueHeight / 2);
-                badgeDrawable.draw(canvas);
-                canvas.restore();
-            } else {
-                canvas.drawCircle(dx, dy, badgeRadius, paint);
-            }
-
-            // Draw text
-            paint.setColor(badgeTextColor);
-            if (limitValue && badgeValue > maxBadgeValue) {
-                canvas.drawText(String.valueOf(maxBadgeValue).concat("+"), dx - textWidth / 2,
-                        dy + badgeTextSize / scale, paint);
-            } else {
-                canvas.drawText(String.valueOf(badgeValue), dx - textWidth / 2,
-                        dy + badgeTextSize / scale, paint);
-            }
-        }
-    }
-
-    private float getBadgeHeight() {
-        return badgeTextSize + badgePadding * 2f;
-    }
-
-    private float getBadgeWidth() {
-        float width;
-        if (badgeDrawable != null
-                && badgeValue > MAX_CIRCLE_NUMBER
-                && badgeOvalAfterFirst
-                && !fixedRadius) {
-            width = textWidth + badgePadding * 4f;
-        } else {
-            width = textWidth + badgePadding * 2f;
-        }
-        return width;
-    }
-
-    private float getTextWidth() {
-        float textWidth;
-        if (limitValue && badgeValue > maxBadgeValue) {
-            textWidth = paint.measureText(String.valueOf(maxBadgeValue).concat("+"));
-        } else {
-            textWidth = paint.measureText(String.valueOf(badgeValue));
-        }
-        return textWidth;
-    }
-
-    private void computeRadius() {
-        if (fixedBadgeRadius != NO_INIT) {
-            badgeRadius = fixedBadgeRadius;
-        } else {
-            badgeRadius = getBadgeWidth() / 2;
-        }
+        manager.drawBadge(canvas);
+        Log.d("1111111", "Badge: " + manager.getBadge());
     }
 
     public void setOnBadgeCountChangeListener(OnBadgeCountChangeListener listener) {
@@ -206,11 +51,11 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     }
 
     public int getBadgeValue() {
-        return badgeValue;
+        return manager.getBadge().getValue();
     }
 
     public ImageBadgeView setBadgeValue(int badgeValue) {
-        this.badgeValue = badgeValue;
+        manager.getBadge().setValue(badgeValue);
         if (onBadgeCountChangeListener != null) {
             onBadgeCountChangeListener.onCountChange(badgeValue);
         }
@@ -219,169 +64,151 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
     }
 
     public boolean isVisibleBadge() {
-        return visibleBadge;
+        return manager.getBadge().isVisible();
     }
 
     public ImageBadgeView visibleBadge(boolean visible) {
-        visibleBadge = visible;
+        manager.getBadge().setVisible(visible);
         invalidate();
         return this;
     }
 
     public boolean isRoundBadge() {
-        return roundBadge;
+        return manager.getBadge().isRoundBadge();
     }
 
     public ImageBadgeView setRoundBadge(boolean roundBadge) {
-        this.roundBadge = roundBadge;
+        manager.getBadge().setRoundBadge(roundBadge);
         invalidate();
         return this;
     }
 
     public boolean isFixedRadius() {
-        return fixedRadius;
+        return manager.getBadge().isFixedRadius();
     }
 
     public ImageBadgeView setFixedRadius(boolean fixedRadius) {
-        this.fixedRadius = fixedRadius;
+        manager.getBadge().setFixedRadius(fixedRadius);
         invalidate();
         return this;
     }
 
     public boolean isBadgeOvalAfterFirst() {
-        return badgeOvalAfterFirst;
+        return manager.getBadge().isOvalAfterFirst();
     }
 
     public ImageBadgeView setBadgeOvalAfterFirst(boolean badgeOvalAfterFirst) {
-        this.badgeOvalAfterFirst = badgeOvalAfterFirst;
+        manager.getBadge().setOvalAfterFirst(badgeOvalAfterFirst);
+        invalidate();
+        return this;
+    }
+
+    public boolean isLimitValue() {
+        return manager.getBadge().isLimitValue();
+    }
+
+    public ImageBadgeView setLimitBadgeValue(boolean badgeValueLimit) {
+        manager.getBadge().setLimitValue(badgeValueLimit);
         invalidate();
         return this;
     }
 
     public int getBadgeColor() {
-        return badgeColor;
+        return manager.getBadge().getBadgeColor();
     }
 
     public ImageBadgeView setBadgeColor(int badgeColor) {
-        this.badgeColor = badgeColor;
+        manager.getBadge().setBadgeColor(badgeColor);
         invalidate();
         return this;
     }
 
     public int getBadgeTextColor() {
-        return badgeTextColor;
+        return manager.getBadge().getBadgeTextColor();
     }
 
     public ImageBadgeView setBadgeTextColor(int badgeTextColor) {
-        this.badgeTextColor = badgeTextColor;
+        manager.getBadge().setBadgeTextColor(badgeTextColor);
         invalidate();
         return this;
     }
 
     public float getBadgeTextSize() {
-        return badgeTextSize;
+        return manager.getBadge().getBadgeTextSize();
     }
 
     public ImageBadgeView setBadgeTextSize(float badgeTextSize) {
-        this.badgeTextSize = DensityUtils.dpToPx((int) badgeTextSize);
+        manager.getBadge().setBadgeTextSize(DensityUtils.dpToPx(badgeTextSize));
         invalidate();
         return this;
     }
 
     public float getBadgePadding() {
-        return badgePadding;
+        return manager.getBadge().getPadding();
     }
 
     public ImageBadgeView setBadgePadding(int badgePadding) {
-        this.badgePadding = DensityUtils.txtPxToSp(badgePadding);
+        manager.getBadge().setPadding(DensityUtils.txtPxToSp(badgePadding));
         invalidate();
         return this;
     }
 
     public float getBadgeRadius() {
-        return badgeRadius;
+        return manager.getBadge().getRadius();
     }
 
     public ImageBadgeView setFixedBadgeRadius(float fixedBadgeRadius) {
-        this.fixedBadgeRadius = fixedBadgeRadius;
+        manager.getBadge().setFixedRadiusSize(fixedBadgeRadius);
         invalidate();
         return this;
     }
 
     public Typeface getBadgeTextFont() {
-        return badgeTextFont;
+        return manager.getBadge().getBadgeTextFont();
     }
 
     public ImageBadgeView setBadgeTextFont(Typeface font) {
-        this.badgeTextFont = font;
+        manager.getBadge().setBadgeTextFont(font);
         invalidate();
         return this;
     }
 
     public int getBadgeTextStyle() {
-        return badgeTextStyle;
+        return manager.getBadge().getTextStyle();
     }
 
     public ImageBadgeView setBadgeTextStyle(int badgeTextStyle) {
-        this.badgeTextStyle = badgeTextStyle;
+        manager.getBadge().setTextStyle(badgeTextStyle);
         invalidate();
         return this;
     }
 
     public int getBadgeBackground() {
-        return badgeBackground;
+        return manager.getBadge().getBadgeBackground();
     }
 
     public Drawable getBadgeBackgroundDrawable() {
-        return badgeDrawable;
+        return manager.getBadge().getBackgroundDrawable();
     }
 
     public ImageBadgeView setBadgeBackground(Drawable badgeBackground) {
-        this.badgeDrawable = badgeBackground;
+        manager.getBadge().setBackgroundDrawable(badgeBackground);
         invalidate();
         return this;
     }
 
     public ImageBadgeView setMaxBadgeValue(int maxBadgeValue) {
-        this.maxBadgeValue = maxBadgeValue;
+        manager.getBadge().setMaxValue(maxBadgeValue);
         invalidate();
         return this;
     }
 
     public int getMaxBadgeValue() {
-        return maxBadgeValue;
-    }
-
-    public boolean isLimitValue() {
-        return limitValue;
-    }
-
-    public ImageBadgeView setLimitBadgeValue(boolean badgeValueLimit) {
-        limitValue = badgeValueLimit;
-        invalidate();
-        return this;
+        return manager.getBadge().getMaxValue();
     }
 
     public void clearBadge() {
-        badgeValue = 0;
-        invalidate();
-    }
-
-    public void resetBadge() {
-        badgeValue = 0;
-        maxBadgeValue = MAX_VALUE;
-        fixedBadgeRadius = NO_INIT;
-        badgeTextStyle = DEFAULT_FONT_STYLE;
-        badgeColor = DEFAULT_BADGE_COLOR;
-        badgeTextSize = DEFAULT_TEXT_SIZE;
-        badgeTextColor = DEFAULT_TEXT_COLOR;
-        badgeDrawable = null;
-        limitValue = DEFAULT_LIMIT;
-        visibleBadge = DEFAULT_VISIBLE;
-        roundBadge = DEFAULT_ROUND;
-        fixedRadius = DEFAULT_FIXED_RADIUS;
-        badgeOvalAfterFirst = DEFAULT_BADGE_OVAL;
-        onBadgeCountChangeListener = null;
+        manager.getBadge().clearValue();
         invalidate();
     }
 }
