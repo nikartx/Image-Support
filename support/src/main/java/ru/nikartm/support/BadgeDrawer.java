@@ -3,6 +3,7 @@ package ru.nikartm.support;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 
 import ru.nikartm.support.constant.Constants;
@@ -28,6 +29,10 @@ public class BadgeDrawer {
         this.badge = badge;
     }
 
+    /**
+     * Draw badge and counter on {@link Canvas}
+     * If a badge counter <= 0 it will be hided on {@link AppCompatImageView}
+     */
     public void draw(Canvas canvas) {
         if (badge.isVisible() && badge.getValue() > 0) {
             initPaint();

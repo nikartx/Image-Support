@@ -2,6 +2,7 @@ package ru.nikartm.support.model;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 
 /**
  * @author Ivan V on 21.02.2018.
@@ -179,6 +180,7 @@ public class Badge {
         return this;
     }
 
+    @Nullable
     public Drawable getBackgroundDrawable() {
         return backgroundDrawable;
     }

@@ -66,6 +66,9 @@ public class AttributeController {
         typedArray.recycle();
     }
 
+    /**
+     * @return initialized badge and counter
+     */
     public Badge getBadge() {
         return badge;
     }

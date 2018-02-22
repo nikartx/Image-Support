@@ -1,6 +1,7 @@
 package ru.nikartm.support;
 
 import android.graphics.Canvas;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -25,10 +26,18 @@ public class DrawerManager {
         drawer = new BadgeDrawer(view, attrController.getBadge());
     }
 
+    /**
+     * Method to provide the badge drawer
+     * @param canvas {@link Canvas} to drawing on {@link AppCompatImageView}
+     */
     public void drawBadge(Canvas canvas) {
         drawer.draw(canvas);
     }
 
+    /**
+     * Provide badge entity after attrs init
+     * @return badge entity
+     */
     public Badge getBadge() {
         return attrController.getBadge();
     }
