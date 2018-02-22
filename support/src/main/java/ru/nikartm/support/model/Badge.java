@@ -3,8 +3,6 @@ package ru.nikartm.support.model;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
-import ru.nikartm.support.constant.Constants;
-
 /**
  * @author Ivan V on 21.02.2018.
  * @version 1.0

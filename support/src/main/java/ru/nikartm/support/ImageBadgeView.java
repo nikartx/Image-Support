@@ -282,8 +282,8 @@ public class ImageBadgeView extends android.support.v7.widget.AppCompatImageView
         return badgeTextSize;
     }
 
-    public ImageBadgeView setBadgeTextSize(int badgeTextSize) {
-        this.badgeTextSize = DensityUtils.dpToPx(badgeTextSize);
+    public ImageBadgeView setBadgeTextSize(float badgeTextSize) {
+        this.badgeTextSize = DensityUtils.dpToPx((int) badgeTextSize);
         invalidate();
         return this;
     }

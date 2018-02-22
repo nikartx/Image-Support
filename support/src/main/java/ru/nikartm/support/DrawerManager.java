@@ -1,8 +1,8 @@
 package ru.nikartm.support;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.View;
 
 import ru.nikartm.support.model.Badge;
 
@@ -15,13 +15,13 @@ public class DrawerManager {
     private AttributeController attrController;
     private BadgeDrawer drawer;
 
-    public DrawerManager(Context context, AttributeSet attrs) {
-        initManager(context, attrs);
+    public DrawerManager(View view, AttributeSet attrs) {
+        initManager(view, attrs);
     }
 
-    private void initManager(Context context, AttributeSet attrs) {
-        attrController = new AttributeController(context, attrs);
-        drawer = new BadgeDrawer(context, attrController.getBadge());
+    private void initManager(View view, AttributeSet attrs) {
+        attrController = new AttributeController(view, attrs);
+        drawer = new BadgeDrawer(view, attrController.getBadge());
     }
 
     public void drawBadge(Canvas canvas) {

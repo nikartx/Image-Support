@@ -1,10 +1,10 @@
 package ru.nikartm.support;
 
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
 
 import ru.nikartm.support.constant.Constants;
 import ru.nikartm.support.model.Badge;
@@ -16,19 +16,19 @@ import ru.nikartm.support.util.DensityUtils;
  */
 public class AttributeController {
 
-    private Context context;
+    private View view;
     private AttributeSet attrs;
     private Badge badge;
 
-    public AttributeController(Context context, AttributeSet attrs) {
-        this.context = context;
+    public AttributeController(View view, AttributeSet attrs) {
+        this.view = view;
         this.attrs = attrs;
         badge = new Badge();
         initAttr();
     }
 
     private void initAttr() {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageBadgeView);
+        TypedArray typedArray = view.getContext().obtainStyledAttributes(attrs, R.styleable.ImageBadgeView);
         int value = typedArray.getInt(R.styleable.ImageBadgeView_ibv_badgeValue,0);
         int maxBadgeValue = typedArray.getInt(R.styleable.ImageBadgeView_ibv_maxBadgeValue, Constants.MAX_VALUE);
         float textSize = typedArray.getDimension(R.styleable.ImageBadgeView_ibv_badgeTextSize, DensityUtils.txtPxToSp(Constants.DEFAULT_TEXT_SIZE));
