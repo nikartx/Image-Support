@@ -20,7 +20,6 @@ public class BadgeDrawer {
     private Badge badge;
 
     private Paint paint;
-    private float scale;
     private float dx;
     private float dy;
 
@@ -56,7 +55,6 @@ public class BadgeDrawer {
         if (paint == null) {
             paint = new Paint();
             paint.setAntiAlias(true);
-            scale = view.getResources().getDisplayMetrics().density;
             Typeface typeface = Typeface.create(badge.getBadgeTextFont(), badge.getTextStyle());
             paint.setTypeface(typeface);
             paint.setTextSize(badge.getBadgeTextSize());
@@ -92,11 +90,13 @@ public class BadgeDrawer {
             dx = pivotX + viewWidth / 2 - getBadgeHeight() / 2;
             valueWidth = valueHeight;
         }
-        badge.getBackgroundDrawable().setBounds(0, 0, valueWidth, valueHeight);
-        canvas.save();
-        canvas.translate(dx - valueWidth / 2, dy - valueHeight / 2);
-        badge.getBackgroundDrawable().draw(canvas);
-        canvas.restore();
+        if (badge.getBackgroundDrawable() != null) {
+            badge.getBackgroundDrawable().setBounds(0, 0, valueWidth, valueHeight);
+            canvas.save();
+            canvas.translate(dx - valueWidth / 2, dy - valueHeight / 2);
+            badge.getBackgroundDrawable().draw(canvas);
+            canvas.restore();
+        }
     }
 
     // Draw text
@@ -104,10 +104,10 @@ public class BadgeDrawer {
         paint.setColor(badge.getBadgeTextColor());
         if (badge.isLimitValue() && badge.getValue() > badge.getMaxValue()) {
             canvas.drawText(String.valueOf(badge.getMaxValue()).concat("+"), dx - badge.getTextWidth() / 2,
-                    dy + badge.getBadgeTextSize() / scale, paint);
+                    dy + badge.getBadgeTextSize() / 3f, paint);
         } else {
             canvas.drawText(String.valueOf(badge.getValue()), dx - badge.getTextWidth() / 2,
-                    dy + badge.getBadgeTextSize() / scale, paint);
+                    dy + badge.getBadgeTextSize() / 3f, paint);
         }
     }
 
