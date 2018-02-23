@@ -22,7 +22,7 @@ or Maven:
 </dependency>
 ```
 ## Screenshots
-![BarcodeInfo Screenshots](https://raw.githubusercontent.com/nikartm/ImageBadgeView/master/screenshots/sct_1.jpg)
+![BarcodeInfo Screenshots](https://raw.githubusercontent.com/nikartm/Image-Support/master/screenshots/sct_1.jpg)
 ## How to use?
 Adjust the xml view:
 ```
