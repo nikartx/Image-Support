@@ -10,20 +10,65 @@ buildscript {
 ```
 Download via Gradle:
 ```
-compile 'com.github.nikartm:image-support:1.0.0'
+compile 'com.github.nikartm:image-support:1.0.1'
 ```
 or Maven:
 ```
 <dependency>
   <groupId>com.github.nikartm</groupId>
   <artifactId>image-support</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
 ## Screenshots
-![BarcodeInfo Screenshots](https://raw.githubusercontent.com/nikartm/BarcodeInfo/master/dev/screenshots.png)
+![BarcodeInfo Screenshots](https://raw.githubusercontent.com/nikartm/ImageBadgeView/master/screenshots/sct_1.jpg)
 ## How to use?
+Adjust the xml view:
+```
+    <ru.nikartm.support.ImageBadgeView
+        android:id="@+id/ibv_icon2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:padding="10dp"
+        app:ibv_badgeValue="100"
+        app:ibv_badgeTextSize="12sp"
+        app:ibv_fixedBadgeRadius="15dp"
+        app:ibv_badgeTextStyle="bold"
+        app:ibv_badgeTextColor="#ffffff"
+        app:ibv_badgeColor="#00ACC1"
+        app:ibv_badgeLimitValue="false"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_shopping_cart" />
+```
+Or programmatically:
+```
+        imageBadgeView.setBadgeValue(27)
+                .setBadgeOvalAfterFirst(true)
+                .setBadgeTextSize(16)
+                .setMaxBadgeValue(999)
+                .setBadgeTextFont(typeface)
+                .setBadgeTextStyle(Typeface.NORMAL)
+                .setBadgePadding(4);
+```
+Use the custom badge background:
+```
+app:ibv_badgeBackground="@drawable/rectangle_rounded"
+```
+Example the custom background - rectangle_rounded.xml:
+```
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="#ea5444"/>
+    <corners android:radius="24dp"/>
+
+    <stroke
+        android:width="1dp"
+        android:color="#f5f5f5"/>
+</shape>
+```
 
 ## License
 Copyright 2018 Ivan Vodyasov
