@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBadgeTextSize(16)
                 .setMaxBadgeValue(999)
                 .setBadgeTextFont(tf)
+                .setBadgePosition(BadgePosition.BOTTOM_RIGHT)
                 .setBadgeTextStyle(Typeface.NORMAL)
                 .setBadgePadding(4);
     }

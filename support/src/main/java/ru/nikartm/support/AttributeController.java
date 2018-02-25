@@ -46,6 +46,7 @@ public class AttributeController {
         boolean ovalAfterFirst = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_badgeOvalAfterFirst, Constants.DEFAULT_BADGE_OVAL);
         int badgeColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeColor, Constants.DEFAULT_BADGE_COLOR);
         int badgeTextColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeTextColor, Constants.DEFAULT_TEXT_COLOR);
+        int badgePosition = typedArray.getInt(R.styleable.ImageBadgeView_ibv_badgePosition, BadgePosition.TOP_RIGHT);
 
         badge.setValue(value)
                 .setMaxValue(maxBadgeValue)
@@ -61,7 +62,8 @@ public class AttributeController {
                 .setFixedRadius(fixedRadius)
                 .setOvalAfterFirst(ovalAfterFirst)
                 .setBadgeColor(badgeColor)
-                .setBadgeTextColor(badgeTextColor);
+                .setBadgeTextColor(badgeTextColor)
+                .setPosition(badgePosition);
 
         typedArray.recycle();
     }

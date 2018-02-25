@@ -28,6 +28,7 @@ public class Badge {
     private boolean ovalAfterFirst;
     private Drawable backgroundDrawable;
     private float textWidth;
+    private int position;
 
     public Badge() {
     }
@@ -198,4 +199,14 @@ public class Badge {
         this.textWidth = textWidth;
         return this;
     }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public Badge setPosition(int position) {
+        this.position = position;
+        return this;
+    }
+
 }

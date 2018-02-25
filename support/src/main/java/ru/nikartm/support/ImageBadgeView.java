@@ -330,4 +330,22 @@ public class ImageBadgeView extends AppCompatImageView {
         manager.getBadge().clearValue();
         invalidate();
     }
+
+    /**
+     * Get position of a badge {@link BadgePosition}.
+     * @return {@link BadgePosition} position on ImageView by index
+     */
+    public int getBadgePosition() {
+        return manager.getBadge().getPosition();
+    }
+
+    /**
+     * Set badge position {@link BadgePosition} on ImageView
+     * @param position on this view {@link BadgePosition} top_left, top_right, bottom_left, bottom_right
+     */
+    public ImageBadgeView setBadgePosition(int position) {
+        manager.getBadge().setPosition(position);
+        invalidate();
+        return this;
+    }
 }
