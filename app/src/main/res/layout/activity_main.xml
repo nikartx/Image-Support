@@ -27,6 +27,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
+        android:layout_gravity="center"
         android:padding="10dp"
         app:ibv_badgeValue="100"
         app:ibv_badgeTextSize="12sp"
@@ -35,7 +36,6 @@
         app:ibv_badgeTextColor="#ffffff"
         app:ibv_badgeColor="#00ACC1"
         app:ibv_badgeLimitValue="false"
-        android:layout_gravity="center"
         android:src="@drawable/ic_shopping_cart" />
 
     <ru.nikartm.support.ImageBadgeView
@@ -47,6 +47,7 @@
         app:ibv_badgeValue="101"
         app:ibv_badgePadding="5dp"
         app:ibv_badgeTextSize="16sp"
+        app:ibv_badgePosition="top_left"
         app:ibv_badgeTextColor="#ffffff"
         app:ibv_badgeColor="@color/colorAccent"
         android:layout_gravity="center"
@@ -71,10 +72,10 @@
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
-        app:ibv_badgePosition="top_right"
         app:ibv_visibleBadge="true"
         app:ibv_showCounter="false"
         app:ibv_fixedBadgeRadius="16dp"
+        app:ibv_badgePosition="top_right"
         app:ibv_badgeBackground="@drawable/ic_check_circle"
         android:src="@drawable/ic_fingerprint" />
 

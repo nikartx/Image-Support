@@ -20,12 +20,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initIconWithBadges() {
-        Typeface tf = Typeface.createFromAsset(getAssets(), "exo_regular.ttf");
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "exo_regular.ttf");
         imageBadgeView.setBadgeValue(27)
                 .setBadgeOvalAfterFirst(true)
                 .setBadgeTextSize(16)
                 .setMaxBadgeValue(999)
-                .setBadgeTextFont(tf)
+                .setBadgeTextFont(typeface)
+                .setBadgeBackground(getResources().getDrawable(R.drawable.rectangle_rounded))
                 .setBadgePosition(BadgePosition.BOTTOM_RIGHT)
                 .setBadgeTextStyle(Typeface.NORMAL)
                 .setShowCounter(true)
