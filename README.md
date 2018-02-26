@@ -10,27 +10,28 @@ buildscript {
 ```
 Download via Gradle:
 ```
-compile 'com.github.nikartm:image-support:1.0.1'
+compile 'com.github.nikartm:image-support:1.0.3'
 ```
 or Maven:
 ```
 <dependency>
   <groupId>com.github.nikartm</groupId>
   <artifactId>image-support</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.3</version>
   <type>pom</type>
 </dependency>
 ```
 ## Screenshots
-![BarcodeInfo Screenshots](https://raw.githubusercontent.com/nikartm/Image-Support/master/screenshots/sct_1.jpg)
+![BarcodeInfo Screenshots](https://raw.githubusercontent.com/nikartm/Image-Support/master/screenshots/sct_1.png)
 ## How to use?
-Adjust the xml view:
+Adjust the xml view [More examples.](https://github.com/nikartm/Image-Support/blob/master/app/src/main/res/layout/activity_main.xml):
 ```
     <ru.nikartm.support.ImageBadgeView
         android:id="@+id/ibv_icon2"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
+        android:layout_gravity="center"
         android:padding="10dp"
         app:ibv_badgeValue="100"
         app:ibv_badgeTextSize="12sp"
@@ -39,7 +40,6 @@ Adjust the xml view:
         app:ibv_badgeTextColor="#ffffff"
         app:ibv_badgeColor="#00ACC1"
         app:ibv_badgeLimitValue="false"
-        android:layout_gravity="center"
         android:src="@drawable/ic_shopping_cart" />
 ```
 Or programmatically:
@@ -49,8 +49,15 @@ Or programmatically:
                 .setBadgeTextSize(16)
                 .setMaxBadgeValue(999)
                 .setBadgeTextFont(typeface)
+                .setBadgeBackground(getResources().getDrawable(R.drawable.rectangle_rounded))
+                .setBadgePosition(BadgePosition.BOTTOM_RIGHT)
                 .setBadgeTextStyle(Typeface.NORMAL)
+                .setShowCounter(true)
                 .setBadgePadding(4);
+```
+Change the position of a badge on view:
+```
+app:ibv_badgePosition="bottom_right"
 ```
 Use the custom badge background:
 ```
