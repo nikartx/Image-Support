@@ -44,6 +44,7 @@ public class AttributeController {
         boolean roundBadge = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_roundBadge, Constants.DEFAULT_ROUND);
         boolean fixedRadius = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_fixedRadius, Constants.DEFAULT_FIXED_RADIUS);
         boolean ovalAfterFirst = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_badgeOvalAfterFirst, Constants.DEFAULT_BADGE_OVAL);
+        boolean showCounter = typedArray.getBoolean(R.styleable.ImageBadgeView_ibv_showCounter, Constants.DEFAULT_SHOW_COUNTER);
         int badgeColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeColor, Constants.DEFAULT_BADGE_COLOR);
         int badgeTextColor = typedArray.getColor(R.styleable.ImageBadgeView_ibv_badgeTextColor, Constants.DEFAULT_TEXT_COLOR);
         int badgePosition = typedArray.getInt(R.styleable.ImageBadgeView_ibv_badgePosition, BadgePosition.TOP_RIGHT);
@@ -61,6 +62,7 @@ public class AttributeController {
                 .setRoundBadge(roundBadge)
                 .setFixedRadius(fixedRadius)
                 .setOvalAfterFirst(ovalAfterFirst)
+                .setShowCounter(showCounter)
                 .setBadgeColor(badgeColor)
                 .setBadgeTextColor(badgeTextColor)
                 .setPosition(badgePosition);

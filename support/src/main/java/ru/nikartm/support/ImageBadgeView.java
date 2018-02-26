@@ -162,6 +162,23 @@ public class ImageBadgeView extends AppCompatImageView {
     }
 
     /**
+     * @return State whether the counter is showing
+     */
+    public boolean isShowCounter() {
+        return manager.getBadge().isShowCounter();
+    }
+
+    /**
+     * Specify whether the counter can be showing on a badge
+     * @param showCounter Specify whether the counter is shown
+     */
+    public ImageBadgeView setShowCounter(boolean showCounter) {
+        manager.getBadge().setShowCounter(showCounter);
+        invalidate();
+        return this;
+    }
+
+    /**
      * State of a badge has limit counter
      * @return state of a badge has limit
      */

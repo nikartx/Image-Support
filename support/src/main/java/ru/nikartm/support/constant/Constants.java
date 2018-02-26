@@ -17,7 +17,8 @@ public class Constants {
     public static final int DEFAULT_TEXT_SIZE = 12;
     public static final Typeface DEFAULT_FONT = Typeface.DEFAULT;
     public static final int DEFAULT_FONT_STYLE = Typeface.NORMAL;
-    public static final boolean DEFAULT_VISIBLE = true;
+    public static final boolean DEFAULT_VISIBLE = false;
+    public static final boolean DEFAULT_SHOW_COUNTER = true;
     public static final boolean DEFAULT_LIMIT = true;
     public static final boolean DEFAULT_ROUND = true;
     public static final boolean DEFAULT_FIXED_RADIUS = false;

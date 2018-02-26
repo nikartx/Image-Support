@@ -13,6 +13,7 @@
         <attr name="ibv_fixedRadius" format="boolean" />
         <!-- Use for the custom badge drawable -->
         <attr name="ibv_badgeOvalAfterFirst" format="boolean" />
+        <attr name="ibv_showCounter" format="boolean" />
         <attr name="ibv_badgePosition">
             <enum name="top_left" value="0" />
             <enum name="top_right" value="1" />

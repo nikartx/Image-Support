@@ -58,7 +58,24 @@
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
-        app:ibv_badgeBackground="@drawable/rectangle_rounded"
+        tools:ibv_badgeValue="27"
+        tools:ibv_badgeTextSize="16dp"
+        tools:ibv_badgePadding="5dp"
+        tools:ibv_badgePosition="bottom_right"
+        tools:ibv_badgeBackground="@drawable/rectangle_rounded"
         android:src="@drawable/ic_mail" />
+
+    <ru.nikartm.support.ImageBadgeView
+        android:id="@+id/ibv_icon5"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        app:ibv_badgePosition="top_right"
+        app:ibv_visibleBadge="true"
+        app:ibv_showCounter="false"
+        app:ibv_fixedBadgeRadius="16dp"
+        app:ibv_badgeBackground="@drawable/ic_check_circle"
+        android:src="@drawable/ic_fingerprint" />
 
 </LinearLayout>

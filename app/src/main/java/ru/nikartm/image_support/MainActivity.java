@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBadgeTextFont(tf)
                 .setBadgePosition(BadgePosition.BOTTOM_RIGHT)
                 .setBadgeTextStyle(Typeface.NORMAL)
+                .setShowCounter(true)
                 .setBadgePadding(4);
     }
 }

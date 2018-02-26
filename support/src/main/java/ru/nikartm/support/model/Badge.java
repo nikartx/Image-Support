@@ -26,6 +26,7 @@ public class Badge {
     private boolean roundBadge;
     private boolean fixedRadius;
     private boolean ovalAfterFirst;
+    private boolean showCounter;
     private Drawable backgroundDrawable;
     private float textWidth;
     private int position;
@@ -178,6 +179,15 @@ public class Badge {
 
     public Badge setOvalAfterFirst(boolean ovalAfterFirst) {
         this.ovalAfterFirst = ovalAfterFirst;
+        return this;
+    }
+
+    public boolean isShowCounter() {
+        return showCounter;
+    }
+
+    public Badge setShowCounter(boolean showCounter) {
+        this.showCounter = showCounter;
         return this;
     }
 

@@ -31,13 +31,15 @@ public class BadgeDrawer {
      * If a badge counter <= 0 it will be hided on {@link AppCompatImageView}
      */
     public void draw(Canvas canvas) {
-        if (badge.isVisible() && badge.getValue() > 0) {
+        if (badge.isVisible() || badge.getValue() > 0) {
             initPaint();
             computeTextWidth();
             position = new BadgePosition(view, badge).compute();
 
             drawBadge(canvas);
-            drawText(canvas);
+            if (badge.isShowCounter()) {
+                drawText(canvas);
+            }
         }
     }
 
