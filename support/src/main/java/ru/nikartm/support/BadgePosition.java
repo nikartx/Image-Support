@@ -74,95 +74,58 @@ public class BadgePosition {
         return this;
     }
 
+    private void defineMeasurement() {
+        if (checkFixedRadius()) {
+            int maxMeasurement = Math.max(badgeWidth, badgeHeight);
+            badgeWidth = maxMeasurement;
+            badgeHeight = maxMeasurement;
+        } else if ((badge.isOvalAfterFirst() && badge.getValue() <= Constants.MAX_CIRCLE_NUMBER)
+                || (badge.isRoundBadge() && badgeWidth < badgeHeight)) {
+            badgeWidth = badgeHeight;
+        }
+    }
+
     private void computeTopLeft() {
-        deltaX = pivotX - viewWidth / 2 + badge.getRadius();
-        deltaY = pivotY - viewHeight / 2 + badge.getRadius();
         if (isDrawBackgroundAdded) {
-            if (checkFixedRadius()) {
-                if (badgeWidth > badgeHeight) {
-                    deltaX = pivotX - viewWidth / 2 + badgeWidth  / 2;
-                    deltaY = pivotY - viewHeight / 2 + badgeWidth  / 2;
-                } else {
-                    deltaX = pivotX - viewWidth / 2 + badgeHeight / 2;
-                    deltaY = pivotY - viewHeight / 2 + badgeHeight / 2;
-                }
-                int maxRadius = Math.max(badgeWidth, badgeHeight);
-                badgeWidth = maxRadius;
-                badgeHeight = maxRadius;
-            } else if (badge.isRoundBadge() && badgeWidth < badgeHeight) {
-                deltaX = pivotX - viewWidth / 2 + badgeHeight / 2;
-                deltaY = pivotY - viewHeight / 2 + badgeHeight / 2;
-                badgeWidth = badgeHeight;
-            }
+            defineMeasurement();
+            deltaX = pivotX - viewWidth / 2 + badgeWidth / 2;
+            deltaY = pivotY - viewHeight / 2 + badgeHeight / 2;
+        } else {
+            deltaX = pivotX - viewWidth / 2 + badge.getRadius();
+            deltaY = pivotY - viewHeight / 2 + badge.getRadius();
         }
     }
 
     private void computeTopRight() {
-        deltaX = pivotX + viewWidth / 2 - badge.getRadius();
-        deltaY = pivotY - viewHeight / 2 + badge.getRadius();
         if (isDrawBackgroundAdded) {
-            if (checkFixedRadius()) {
-                if (badgeWidth >= badgeHeight) {
-                    deltaX = pivotX + viewWidth / 2 - badgeWidth / 2;
-                    deltaY = pivotY - viewHeight / 2 + badgeWidth / 2;
-                } else {
-                    deltaX = pivotX + viewWidth / 2 - badgeHeight / 2;
-                    deltaY = pivotY - viewHeight / 2 + badgeHeight / 2;
-                }
-                int maxRadius = Math.max(badgeWidth, badgeHeight);
-                badgeWidth = maxRadius;
-                badgeHeight = maxRadius;
-            } else if (badge.isRoundBadge() && badgeWidth < badgeHeight) {
-                deltaX = pivotX + viewWidth / 2 - badgeHeight / 2;
-                deltaY = pivotY - viewHeight / 2 + badgeHeight / 2;
-                badgeWidth = badgeHeight;
-            }
+            defineMeasurement();
+            deltaX = pivotX + viewWidth / 2 - badgeWidth / 2;
+            deltaY = pivotY - viewHeight / 2 + badgeHeight / 2;
+        } else {
+            deltaX = pivotX + viewWidth / 2 - badge.getRadius();
+            deltaY = pivotY - viewHeight / 2 + badge.getRadius();
         }
     }
 
     private void computeBottomLeft() {
-        deltaX = pivotX - viewWidth / 2 + badge.getRadius();
-        deltaY = pivotY + viewHeight / 2 - badge.getRadius();
         if (isDrawBackgroundAdded) {
-            if (checkFixedRadius()) {
-                if (badgeWidth > badgeHeight) {
-                    deltaX = pivotX - viewWidth / 2 + badgeWidth / 2;
-                    deltaY = pivotY + viewHeight / 2 - badgeWidth / 2;
-                } else {
-                    deltaX = pivotX - viewWidth / 2 + badgeHeight / 2;
-                    deltaY = pivotY + viewHeight / 2 - badgeHeight / 2;
-                }
-                int maxRadius = Math.max(badgeWidth, badgeHeight);
-                badgeWidth = maxRadius;
-                badgeHeight = maxRadius;
-            } else if (badge.isRoundBadge() && badgeWidth < badgeHeight) {
-                deltaX = pivotX - viewWidth / 2 + badgeHeight / 2;
-                deltaY = pivotY + viewHeight / 2 - badgeHeight / 2;
-                badgeWidth = badgeHeight;
-            }
+            defineMeasurement();
+            deltaX = pivotX - viewWidth / 2 + badgeWidth / 2;
+            deltaY = pivotY + viewHeight / 2 - badgeHeight / 2;
+        } else {
+            deltaX = pivotX - viewWidth / 2 + badge.getRadius();
+            deltaY = pivotY + viewHeight / 2 - badge.getRadius();
         }
     }
 
     private void computeBottomRight() {
-        deltaX = pivotX + viewWidth / 2 - badge.getRadius();
-        deltaY = pivotY + viewHeight / 2 - badge.getRadius();
         if (isDrawBackgroundAdded) {
-            if (checkFixedRadius()) {
-                if (badgeWidth > badgeHeight) {
-                    deltaX = pivotX + viewWidth / 2 - badgeWidth / 2;
-                    deltaY = pivotY + viewHeight / 2 - badgeWidth / 2;
-                } else {
-                    deltaX = pivotX + viewWidth / 2 - badgeHeight / 2;
-                    deltaY = pivotY + viewHeight / 2 - badgeHeight / 2;
-                }
-                int maxRadius = Math.max(badgeWidth, badgeHeight);
-                badgeWidth = maxRadius;
-                badgeHeight = maxRadius;
-            } else if (badge.isRoundBadge() && badgeWidth < badgeHeight) {
-                deltaX = pivotX + viewWidth / 2 - badgeHeight / 2;
-                deltaY = pivotY + viewHeight / 2 - badgeHeight / 2;
-                badgeWidth = badgeHeight;
-            }
+            defineMeasurement();
+            deltaX = pivotX + viewWidth / 2 - badgeWidth / 2;
+            deltaY = pivotY + viewHeight / 2 - badgeHeight / 2;
+        } else {
+            deltaX = pivotX + viewWidth / 2 - badge.getRadius();
+            deltaY = pivotY + viewHeight / 2 - badge.getRadius();
         }
     }
 
@@ -170,13 +133,7 @@ public class BadgePosition {
         deltaX = viewWidth / 2;
         deltaY = viewHeight / 2;
         if (isDrawBackgroundAdded) {
-            if (checkFixedRadius()) {
-                int fixedDiameter = (int) (badge.getFixedRadiusSize() * 2f);
-                badgeWidth = fixedDiameter;
-                badgeHeight = fixedDiameter;
-            } else if (badge.isRoundBadge() && badgeWidth < badgeHeight) {
-                badgeWidth = badgeHeight;
-            }
+            defineMeasurement();
         }
     }
 
