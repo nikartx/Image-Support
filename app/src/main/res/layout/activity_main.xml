@@ -29,7 +29,7 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:padding="10dp"
-        app:ibv_badgeValue="100"
+        app:ibv_badgeValue="101"
         app:ibv_badgeTextSize="12sp"
         app:ibv_fixedBadgeRadius="15dp"
         app:ibv_badgeTextStyle="bold"
