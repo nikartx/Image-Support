@@ -1,3 +1,5 @@
+[![Download](https://api.bintray.com/packages/nikart/maven/ImageBadgeView/images/download.svg)](https://bintray.com/nikart/maven/ImageBadgeView/_latestVersion) [![Release](https://jitpack.io/v/nikartm/image-support.svg)](https://jitpack.io/#nikartm/image-support)
+
 # ImageBadgeView
 Library to add ImageView (ImageBadgeView) with a badge like notification count.
 ## Download
@@ -7,10 +9,11 @@ buildscript {
     repositories {
         jcenter()
     }
+}
 ```
 Download via Gradle:
 ```
-compile 'com.github.nikartm:image-support:1.0.4'
+implementation 'com.github.nikartm:image-support:1.0.4'
 ```
 or Maven:
 ```
@@ -26,34 +29,34 @@ or Maven:
 ## How to use?
 Adjust the xml view [More examples.](https://github.com/nikartm/Image-Support/blob/master/app/src/main/res/layout/activity_main.xml):
 ```
-    <ru.nikartm.support.ImageBadgeView
-        android:id="@+id/ibv_icon2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        app:ibv_badgeValue="100"
-        app:ibv_badgeTextSize="12sp"
-        app:ibv_fixedBadgeRadius="15dp"
-        app:ibv_badgeTextStyle="bold"
-        app:ibv_badgeTextColor="#ffffff"
-        app:ibv_badgeColor="#00ACC1"
-        app:ibv_badgeLimitValue="false"
-        android:src="@drawable/ic_shopping_cart" />
+<ru.nikartm.support.ImageBadgeView
+    android:id="@+id/ibv_icon2"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_marginTop="30dp"
+    android:layout_gravity="center"
+    android:padding="10dp"
+    app:ibv_badgeValue="100"
+    app:ibv_badgeTextSize="12sp"
+    app:ibv_fixedBadgeRadius="15dp"
+    app:ibv_badgeTextStyle="bold"
+    app:ibv_badgeTextColor="#ffffff"
+    app:ibv_badgeColor="#00ACC1"
+    app:ibv_badgeLimitValue="false"
+    android:src="@drawable/ic_shopping_cart" />
 ```
 Or programmatically:
 ```
-        imageBadgeView.setBadgeValue(27)
-                .setBadgeOvalAfterFirst(true)
-                .setBadgeTextSize(16)
-                .setMaxBadgeValue(999)
-                .setBadgeTextFont(typeface)
-                .setBadgeBackground(getResources().getDrawable(R.drawable.rectangle_rounded))
-                .setBadgePosition(BadgePosition.BOTTOM_RIGHT)
-                .setBadgeTextStyle(Typeface.NORMAL)
-                .setShowCounter(true)
-                .setBadgePadding(4);
+imageBadgeView.setBadgeValue(27)
+        .setBadgeOvalAfterFirst(true)
+        .setBadgeTextSize(16)
+        .setMaxBadgeValue(999)
+        .setBadgeTextFont(typeface)
+        .setBadgeBackground(getResources().getDrawable(R.drawable.rectangle_rounded))
+        .setBadgePosition(BadgePosition.BOTTOM_RIGHT)
+        .setBadgeTextStyle(Typeface.NORMAL)
+        .setShowCounter(true)
+        .setBadgePadding(4);
 ```
 Change the position of a badge on view:
 ```
