@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ImageBadgeView</string>
+
+    <string name="tap_on_cart">Tap on the Cart</string>
 </resources>

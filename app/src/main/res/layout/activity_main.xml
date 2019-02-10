@@ -1,82 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context="ru.nikartm.image_support.MainActivity">
 
-    <ru.nikartm.support.ImageBadgeView
-        android:id="@+id/ibv_icon1"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
-        app:ibv_badgeValue="15"
-        app:ibv_badgePadding="5dp"
-        app:ibv_badgeTextSize="12sp"
-        app:ibv_badgeTextColor="#ffffff"
-        app:ibv_badgeColor="@color/colorGreen500"
-        app:ibv_visibleBadge="true"
-        app:ibv_badgeLimitValue="true"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_people" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
 
-    <ru.nikartm.support.ImageBadgeView
-        android:id="@+id/ibv_icon2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        app:ibv_badgeValue="101"
-        app:ibv_badgeTextSize="12sp"
-        app:ibv_fixedBadgeRadius="15dp"
-        app:ibv_badgeTextStyle="bold"
-        app:ibv_badgeTextColor="#ffffff"
-        app:ibv_badgeColor="#00ACC1"
-        app:ibv_badgeLimitValue="false"
-        android:src="@drawable/ic_shopping_cart" />
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            app:ibv_badgeValue="15"
+            app:ibv_badgePadding="5dp"
+            app:ibv_badgeTextSize="12sp"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="@color/colorGreen500"
+            app:ibv_visibleBadge="true"
+            app:ibv_badgeLimitValue="true"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_people" />
 
-    <ru.nikartm.support.ImageBadgeView
-        android:id="@+id/ibv_icon3"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
-        android:padding="5dp"
-        app:ibv_badgeValue="101"
-        app:ibv_badgePadding="5dp"
-        app:ibv_badgeTextSize="16sp"
-        app:ibv_badgePosition="top_left"
-        app:ibv_badgeTextColor="#ffffff"
-        app:ibv_badgeColor="@color/colorAccent"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher_round" />
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            app:ibv_badgeValue="3"
+            app:ibv_badgeTextSize="12sp"
+            app:ibv_fixedBadgeRadius="15dp"
+            app:ibv_badgeTextStyle="bold"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="#00ACC1"
+            app:ibv_badgeLimitValue="false"
+            android:src="@drawable/ic_shopping_cart" />
 
-    <ru.nikartm.support.ImageBadgeView
-        android:id="@+id/ibv_icon4"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        tools:ibv_badgeValue="27"
-        tools:ibv_badgeTextSize="16dp"
-        tools:ibv_badgePadding="5dp"
-        tools:ibv_badgePosition="bottom_right"
-        tools:ibv_badgeBackground="@drawable/rectangle_rounded"
-        android:src="@drawable/ic_mail" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="@string/tap_on_cart"/>
 
-    <ru.nikartm.support.ImageBadgeView
-        android:id="@+id/ibv_icon5"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        app:ibv_visibleBadge="true"
-        app:ibv_showCounter="false"
-        app:ibv_fixedBadgeRadius="16dp"
-        app:ibv_badgePosition="top_right"
-        app:ibv_badgeBackground="@drawable/ic_check_circle"
-        android:src="@drawable/ic_fingerprint" />
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:padding="5dp"
+            app:ibv_badgeValue="101"
+            app:ibv_badgePadding="5dp"
+            app:ibv_badgeTextSize="16sp"
+            app:ibv_badgePosition="top_left"
+            app:ibv_badgeTextColor="#ffffff"
+            app:ibv_badgeColor="@color/colorAccent"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher_round" />
 
-</LinearLayout>
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            tools:ibv_badgeValue="27"
+            tools:ibv_badgeTextSize="16dp"
+            tools:ibv_badgePadding="5dp"
+            tools:ibv_badgePosition="bottom_right"
+            tools:ibv_badgeBackground="@drawable/rectangle_rounded"
+            android:src="@drawable/ic_mail" />
+
+        <ru.nikartm.support.ImageBadgeView
+            android:id="@+id/ibv_icon5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            app:ibv_visibleBadge="true"
+            app:ibv_showCounter="false"
+            app:ibv_fixedBadgeRadius="16dp"
+            app:ibv_badgePosition="top_right"
+            app:ibv_badgeBackground="@drawable/ic_check_circle"
+            android:src="@drawable/ic_fingerprint" />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
