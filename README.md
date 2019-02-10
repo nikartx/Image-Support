@@ -13,14 +13,14 @@ buildscript {
 ```
 Download via Gradle:
 ```
-implementation 'com.github.nikartm:image-support:1.0.4'
+implementation 'com.github.nikartm:image-support:1.0.5'
 ```
 or Maven:
 ```
 <dependency>
   <groupId>com.github.nikartm</groupId>
   <artifactId>image-support</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <type>pom</type>
 </dependency>
 ```
