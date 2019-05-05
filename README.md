@@ -1,4 +1,4 @@
-[![Download](https://api.bintray.com/packages/nikart/maven/ImageBadgeView/images/download.svg)](https://bintray.com/nikart/maven/ImageBadgeView/_latestVersion) [![Release](https://jitpack.io/v/nikartm/image-support.svg)](https://jitpack.io/#nikartm/image-support) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImageBadgeView-green.svg?style=flat )]( https://android-arsenal.com/details/1/7619 )
+[![Download](https://api.bintray.com/packages/nikart/maven/ImageBadgeView/images/download.svg)](https://bintray.com/nikart/maven/ImageBadgeView/_latestVersion) [![Release](https://jitpack.io/v/nikartm/image-support.svg)](https://jitpack.io/#nikartm/image-support) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImageBadgeView-green.svg?style=flat )]( https://android-arsenal.com/details/1/7619) [![Donate using PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/ivodyasov)
 
 # ImageBadgeView
 Library to add ImageView (ImageBadgeView) with a badge like notification count.
