@@ -3,7 +3,7 @@ package ru.nikartm.support;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.support.v7.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 import android.view.View;
 
 import ru.nikartm.support.model.Badge;
