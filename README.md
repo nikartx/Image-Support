@@ -13,17 +13,9 @@ buildscript {
 ```
 Download via Gradle:
 ```
-implementation 'com.github.nikartm:image-support:1.0.5'
+implementation 'com.github.nikartm:image-support:$LAST_VERSION'
 ```
-or Maven:
-```
-<dependency>
-  <groupId>com.github.nikartm</groupId>
-  <artifactId>image-support</artifactId>
-  <version>1.0.5</version>
-  <type>pom</type>
-</dependency>
-```
+
 ## Screenshots
 ![BarcodeInfo Screenshots](https://raw.githubusercontent.com/nikartm/Image-Support/master/screenshots/sct_1.png)
 ## How to use?
