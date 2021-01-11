@@ -2,7 +2,7 @@ package ru.nikartm.support.model;
 
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 /**
  * @author Ivan V on 21.02.2018.
