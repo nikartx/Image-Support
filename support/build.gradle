@@ -23,6 +23,7 @@ android {
 allprojects {
     tasks.withType(Javadoc).all { enabled = false }
 }
+
 if (JavaVersion.current().isJava8Compatible()) {
     allprojects {
         tasks.withType(Javadoc) {
@@ -35,7 +36,7 @@ publish {
     userOrg = 'nikart'
     groupId = 'com.github.nikartm'
     artifactId = 'image-support'
-    publishVersion = '1.0.5'
+    publishVersion = '1.1.0'
     desc = 'Library to add ImageView (ImageBadgeView) with a badge like notification count'
     licences = ['Apache-2.0']
     uploadName='ImageBadgeView'
