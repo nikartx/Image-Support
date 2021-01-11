@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import ru.nikartm.support.listener.OnBadgeCountChangeListener;
 import ru.nikartm.support.util.DensityUtils;
 

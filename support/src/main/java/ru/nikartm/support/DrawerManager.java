@@ -1,10 +1,10 @@
 package ru.nikartm.support;
 
 import android.graphics.Canvas;
-import androidx.appcompat.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import ru.nikartm.support.model.Badge;
 
 /**
