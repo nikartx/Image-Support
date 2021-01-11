@@ -8,6 +8,8 @@ import android.view.View;
 
 import ru.nikartm.support.model.Badge;
 
+import static ru.nikartm.support.constant.Constants.PLUS;
+
 /**
  * Draw a badge and the count on ImageView
  * @author Ivan V on 21.02.2018.
@@ -18,8 +20,8 @@ public class BadgeDrawer {
     private BadgePosition position;
     private Paint paint;
 
-    private View view;
-    private Badge badge;
+    private final View view;
+    private final Badge badge;
 
     BadgeDrawer(View view, Badge badge) {
         this.view = view;
@@ -57,7 +59,10 @@ public class BadgeDrawer {
     private void drawBadge(Canvas canvas) {
         paint.setColor(badge.getBadgeColor());
         if (badge.getBackgroundDrawable() != null) {
-            badge.getBackgroundDrawable().setBounds(0, 0, position.getBadgeWidth(), position.getBadgeHeight());
+            badge.getBackgroundDrawable().setBounds(0,
+                    0,
+                    (int) position.getBadgeWidth(),
+                    (int) position.getBadgeHeight());
             canvas.save();
             canvas.translate(position.getDeltaX() - position.getBadgeWidth() / 2,
                              position.getDeltaY() - position.getBadgeHeight() / 2);
@@ -72,10 +77,12 @@ public class BadgeDrawer {
     private void drawText(Canvas canvas) {
         paint.setColor(badge.getBadgeTextColor());
         if (badge.isLimitValue() && badge.getValue() > badge.getMaxValue()) {
-            canvas.drawText(String.valueOf(badge.getMaxValue()).concat("+"), position.getDeltaX() - badge.getTextWidth() / 2,
+            canvas.drawText(String.valueOf(badge.getMaxValue()).concat(PLUS),
+                    position.getDeltaX() - badge.getTextWidth() / 2,
                     position.getDeltaY() + badge.getBadgeTextSize() / 3f, paint);
         } else {
-            canvas.drawText(String.valueOf(badge.getValue()), position.getDeltaX() - badge.getTextWidth() / 2,
+            canvas.drawText(String.valueOf(badge.getValue()),
+                    position.getDeltaX() - badge.getTextWidth() / 2,
                     position.getDeltaY() + badge.getBadgeTextSize() / 3f, paint);
         }
     }
@@ -83,7 +90,7 @@ public class BadgeDrawer {
     private void computeTextWidth() {
         float textWidth;
         if (badge.isLimitValue() && badge.getValue() > badge.getMaxValue()) {
-            textWidth = paint.measureText(String.valueOf(badge.getMaxValue()).concat("+"));
+            textWidth = paint.measureText(String.valueOf(badge.getMaxValue()).concat(PLUS));
         } else {
             textWidth = paint.measureText(String.valueOf(badge.getValue()));
         }

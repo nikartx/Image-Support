@@ -17,9 +17,9 @@ import ru.nikartm.support.util.DensityUtils;
  */
 public class AttributeController {
 
-    private View view;
-    private AttributeSet attrs;
-    private Badge badge;
+    private final View view;
+    private final AttributeSet attrs;
+    private final Badge badge;
 
     public AttributeController(View view, AttributeSet attrs) {
         this.view = view;

@@ -24,5 +24,6 @@ public class Constants {
     public static final boolean DEFAULT_FIXED_RADIUS = false;
     public static final boolean DEFAULT_BADGE_OVAL = false;
     public static final float NO_INIT = -1f;
+    public static final String PLUS = "+";
 
 }

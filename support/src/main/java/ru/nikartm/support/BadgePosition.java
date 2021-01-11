@@ -18,17 +18,17 @@ public class BadgePosition {
     public static final int BOTTOM_RIGHT = 3;
     public static final int CENTER = 4;
 
-    private View view;
-    private Badge badge;
+    private final View view;
+    private final Badge badge;
 
     private boolean isDrawBackgroundAdded = false;
 
     private float pivotX;
     private float pivotY;
-    private int viewHeight;
-    private int viewWidth;
-    private int badgeWidth;
-    private int badgeHeight;
+    private float viewHeight;
+    private float viewWidth;
+    private float badgeWidth;
+    private float badgeHeight;
 
     private float deltaX;
     private float deltaY;
@@ -76,7 +76,7 @@ public class BadgePosition {
 
     private void defineMeasurement() {
         if (checkFixedRadius()) {
-            int maxMeasurement = Math.max(badgeWidth, badgeHeight);
+            float maxMeasurement = Math.max(badgeWidth, badgeHeight);
             badgeWidth = maxMeasurement;
             badgeHeight = maxMeasurement;
         } else if ((badge.isOvalAfterFirst() && badge.getValue() <= Constants.MAX_CIRCLE_NUMBER)
@@ -170,11 +170,11 @@ public class BadgePosition {
         return badge.getFixedRadiusSize() != Constants.NO_INIT || badge.isFixedRadius();
     }
 
-    public int getBadgeHeight() {
+    public float getBadgeHeight() {
         return badgeHeight;
     }
 
-    public int getBadgeWidth() {
+    public float getBadgeWidth() {
         return badgeWidth;
     }
 

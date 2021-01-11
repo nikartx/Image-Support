@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.core.content.res.ResourcesCompat;
 import ru.nikartm.support.BadgePosition;
 import ru.nikartm.support.ImageBadgeView;
 
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 .setBadgeTextSize(16)
                 .setMaxBadgeValue(999)
                 .setBadgeTextFont(typeface)
-                .setBadgeBackground(getResources().getDrawable(R.drawable.rectangle_rounded))
+                .setBadgeBackground(ResourcesCompat.getDrawable(getResources(),
+                        R.drawable.rectangle_rounded, null))
                 .setBadgePosition(BadgePosition.BOTTOM_RIGHT)
                 .setBadgeTextStyle(Typeface.NORMAL)
                 .setShowCounter(true)
