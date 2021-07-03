@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.panpf.bintray-publish'
 
 android {
     compileSdkVersion 30
@@ -37,23 +36,12 @@ if (JavaVersion.current().isJava8Compatible()) {
     }
 }
 
-publish {
-    userOrg = 'nikart'
-    groupId = 'com.github.nikartm'
-    artifactId = 'image-support'
-    publishVersion = '1.1.0'
-    desc = 'Library to add ImageView (ImageBadgeView) with a badge like notification count'
-    licences = ['Apache-2.0']
-    uploadName='ImageBadgeView'
-    website = 'https://github.com/nikartm/Image-Support'
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
 }
