@@ -1,5 +1,22 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.panpf.bintray-publish'
+
+ext {
+    PUBLISH_GROUP_ID = 'io.github.nikartm'
+    PUBLISH_VERSION = '2.0.0'
+    PUBLISH_ARTIFACT_ID = 'image-support'
+    PUBLISH_DESCRIPTION = 'Library to add ImageView (ImageBadgeView) with a badge like notification count'
+    PUBLISH_URL = 'https://github.com/nikartm/Image-Support'
+    PUBLISH_LICENSE_NAME = 'The Apache Software License, Version 2.0'
+    PUBLISH_LICENSE_URL = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    PUBLISH_DEVELOPER_ID = 'ivanv'
+    PUBLISH_DEVELOPER_NAME = 'Ivan Vodyasov'
+    PUBLISH_DEVELOPER_EMAIL = 'jvissun@gmail.com'
+    PUBLISH_SCM_CONNECTION = 'scm:git:github.com/nikartm/Image-Support.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION = 'scm:git:ssh://github.com/nikartm/Image-Support.git'
+    PUBLISH_SCM_URL = 'https://github.com/nikartm/Image-Support/tree/master'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
     compileSdkVersion 30
@@ -25,35 +42,11 @@ android {
     }
 }
 
-allprojects {
-    tasks.withType(Javadoc).all { enabled = false }
-}
-
-if (JavaVersion.current().isJava8Compatible()) {
-    allprojects {
-        tasks.withType(Javadoc) {
-            options.addStringOption('Xdoclint:none', '-quiet')
-        }
-    }
-}
-
-publish {
-    userOrg = 'nikart'
-    groupId = 'com.github.nikartm'
-    artifactId = 'image-support'
-    publishVersion = '1.1.0'
-    desc = 'Library to add ImageView (ImageBadgeView) with a badge like notification count'
-    licences = ['Apache-2.0']
-    uploadName='ImageBadgeView'
-    website = 'https://github.com/nikartm/Image-Support'
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.13.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
 }

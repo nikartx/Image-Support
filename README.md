@@ -1,17 +1,30 @@
-[![Download](https://api.bintray.com/packages/nikart/maven/ImageBadgeView/images/download.svg)](https://bintray.com/nikart/maven/ImageBadgeView/_latestVersion) [![Release](https://jitpack.io/v/nikartm/image-support.svg)](https://jitpack.io/#nikartm/image-support) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImageBadgeView-green.svg?style=flat )]( https://android-arsenal.com/details/1/7619) [![Donate using PayPal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/ivodyasov)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.nikartm/image-support.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.nikartm%22%20AND%20a:%22image-support%22) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-ImageBadgeView-green.svg?style=flat )]( https://android-arsenal.com/details/1/7619)
+
+
 
 # ImageBadgeView
 Library to add ImageView (ImageBadgeView) with a badge like notification count.
 ## Download
 Add to gradle root:
 ```
-buildscript {
-    repositories {
-        jcenter()
-    }
+allprojects {
+  repositories {
+    mavenCentral()
+  }
 }
 ```
-Download via Gradle:
+
+#### After migrating to MavenCentral, use Groove:
+```
+implementation 'io.github.nikartm:image-support:2.0.0'
+```
+Or Kotlin DSL:
+```
+implementation("io.github.nikartm:image-support:2.0.0")
+```
+Or take a different [approach](https://search.maven.org/artifact/io.github.nikartm/image-support/2.0.0/aar)
+
+Old way (deprecated):
 ```
 implementation 'com.github.nikartm:image-support:$LAST_VERSION'
 ```
